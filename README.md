@@ -1,6 +1,5 @@
 
-# [Ionic Shop (Advanced Edition)](https://www.noodl.io/market/product/P201602271203444/ionic-shop-advanced-edition-full-ecommerce-app-w-stripe-payments-and-admin)
-## Documentation
+# [Ionic Shop (Advanced Edition)](https://www.noodl.io/market/product/P201602271203444/ionic-shop-advanced-edition-full-ecommerce-app-w-stripe-payments-and-admin) | Documentation
 
 The **Ionic Shop - Advanced Edition** is the complete solution to start your own eCommerce app or webshop today. It contains everything you need to sell your
 products immediately and receive payments on your account. It also comes with a complete Admin Management part that can be used by non-developers to manage the content of the app.
