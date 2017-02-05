@@ -1,7 +1,7 @@
 
-# [Ionic Shop (Advanced Edition)](https://www.noodl.io/market/product/P201602271203444/ionic-shop-advanced-edition-full-ecommerce-app-w-stripe-payments-and-admin) | Documentation
+# [Ionic Shop Plus (with Firebase V3 support)](https://www.noodl.io/market/product/P201602271203444/ionic-shop-advanced-edition-full-ecommerce-app-w-stripe-payments-and-admin) | Documentation
 
-The **Ionic Shop - Advanced Edition** is the complete solution to start your own eCommerce app or webshop today. It contains everything you need to sell your
+The **Ionic Shop Plus (with Firebase V3 support)** is the complete solution to start your own eCommerce app or webshop today. It contains everything you need to sell your
 products immediately and receive payments on your account. It also comes with a complete Admin Management part that can be used by non-developers to manage the content of the app.
 
 View a demo, preview it on your phone, read more about all the functionalities and download the template on the [product page](https://www.noodl.io/market/product/P201602271203444/ionic-shop-advanced-edition-full-ecommerce-app-w-stripe-payments-and-admin).
@@ -22,9 +22,9 @@ Unzip the package in your workspace. You will find two folders:
 - ionic-app
 - admin
 
-# Setup 1: Payment setup
+# Setup 1: Payments
 
-We first need to define a couple of constants in our app. If you are working with Angular/Ionic `v1.x`, head over to `app.js` and you'll see the following:
+We first need to define a couple of constants in our app. If you are working with Angular/Ionic `v1.x`, head over to  `ionic-app/www/js/app.js` and you'll see the following at the top:
 
 ```
 // ---------------------------------------------------------------------------------------------------------
@@ -36,7 +36,6 @@ We first need to define a couple of constants in our app. If you are working wit
 // https://market.mashape.com/noodlio/noodlio-pay-smooth-payments-with-stripe
 var NOODLIO_PAY_API_URL         = "https://noodlio-pay.p.mashape.com";
 var NOODLIO_PAY_API_KEY         = "<YOUR-UNIQUE-MASHAPE-ID>";
-var NOODLIO_PAY_CHECKOUT_KEY    = {test: "pk_test_QGTo45DJY5kKmsX21RB3Lwvn", live: "pk_live_ZjOCjtf1KBlSHSyjKDDmOGGE"};
 
 // Obtain your unique Stripe Account Id from here:
 // https://www.noodl.io/pay/connect
@@ -44,14 +43,11 @@ var NOODLIO_PAY_CHECKOUT_KEY    = {test: "pk_test_QGTo45DJY5kKmsX21RB3Lwvn", liv
 // https://www.noodl.io/pay/connect/test
 var STRIPE_ACCOUNT_ID           = "<YOUR-UNIQUE-STRIPE-ID>";
 
-// Set your Firebase url
-var FBURL                       = '<YOUR-FB-URL>';
-
 // Define whether you are in development mode (TEST_MODE: true) or production mode (TEST_MODE: false)
 var TEST_MODE = true;
 ```
 
-The `NOODLIO_PAY_API_URL` is basically the location of the server and is fixed. The variable `TEST_MODE` simply takes the values `true` or `false` and defines whether we are in test mode (development) or production (actually charging the user). Now let's define two constants:
+The `NOODLIO_PAY_API_URL` is basically the location of the server and is fixed (Do not change this!). The variable `TEST_MODE` simply takes the values `true` or `false` and defines whether we are in test mode (development) or production (actually charging the user). Now let's define two constants:
 
 **Mashape**
 
@@ -73,7 +69,7 @@ Replace the `NOODLIO_PAY_API_KEY` with this unique identifier.
 
 **Stripe Account**
 
-If you haven't already [sign up for a Stripe Account](https://www.stripe.com). After that, you'll need to retrieve your unique Stripe Account ID (field: `stripe_account`), which you can obtain on the following pages (Note: you'll need to visit both links once):
+If you haven't already [sign up for a Stripe Account](https://www.stripe.com). After that, you'll need to retrieve your unique Stripe Account ID (field: `stripe_account`), which you can obtain on the following pages (Note: **you'll need to visit both links once**):
 
 - For the production mode:
 [https://www.noodl.io/pay/connect](https://www.noodl.io/pay/connect)
@@ -82,63 +78,63 @@ If you haven't already [sign up for a Stripe Account](https://www.stripe.com). A
 
 The Stripe Account ID looks something like `acct_12abcDEF34GhIJ5K`. Replace the constant `STRIPE_ACCOUNT_ID` wherever you have defined it.
 
-That's it. Our server is configured and ready to receive payments.
+That's it. Our payment server is configured and ready to receive payments.
 
-# Setup 2: Firebase Admin Rights, Security Rules and Firebase Constants
+# Setup 2: Firebase
 We use Firebase as a database to host your shopping items, i.e. the products that you are selling. These items are managed through an admin panel that is provided with this package in the folder `admin`.
 
-## Creating a Firebase Account
+## Add firebase to your app
 
-1. If you already have a Firebase account, login, go to your Dashboard and create a new app.
-2. Open this workspace by pressing **Manage this app**.
-   In your browser, remember the url (i.e. something like: `[your-app-name].firebaseio.com`. We define this as the `FBURL` (needed in steps below)
+1. Head over to Firebase.com (sign/log in to the console panel) and **Create a new project**.
+2. Open the project, and in the section *Overview* press on **Add firebase to your web app**. Copy this html/script code.
+3. In both the `admin` and `ionic-app` folder, open `index.html` and replace the section "Firebase v3" (`line 28`) with the code you just copied.
 
-## Firebase Admin Rights
-The instructions for this part are visually explained in the folder `admin/img/examples`.
-
-## Security Rules
+## Copy/paste the Security Rules
 To secure your app we will need to add Firebase security rules:
 
-1. open the file `firebase_rules.txt` and copy the content
-2. go to your Firebase and open your app `[your-app-name]`.
-3. On the right, press **Security & Rules**
-4. Paste (overwrite) all content with the content of `firebase_rules.txt`
+1. Open the file `firebase_rules.txt` and copy the content
+2. Go to your Firebase project, on the left click on **Database** and then select **Rules**.
+3. Paste (overwrite) all content with the content of `firebase_rules.txt`
 
-### Firebase Constants
+## Enable password authentication
 
-We need to replace the FBURL at two locations:
+1. To allow users to login, head over to **Authentication** in your project workspace and press on **Sign in method**.
+2. Enable E-mail and Password (minimum requirement!).
+3. The instructions for enabling social authentication will follow soon.
 
-1. Open `ionic-app/www/js/app.js` and replace `FBURL` with the appropriate value (i.e. `[your-app-name].firebaseio.com)`
-2. Open `admin/js/app.js` and replace `FBURL` with the appropriate value (i.e. `[your-app-name].firebaseio.com)`
 
 # Setup 3: Admin panel
-The last step is to setup your Admin panel. You can unzip the files on your computer and then simply open `index.html` with Chrome to work with it.
 
-Alternatively, host it in the cloud with for instance Cloud9:
+The admin panel allows you to manage the products you sell in the Ionic App. It also provides you with additional settings (such as fees, categories, etc.)
 
-1. go to `www.c9.io`
-2. create an account or login
-3. in your dashboard, create a new workspace (select nodejs)
-4. open this workspace
-5. delete all files in there
-6. upload (drag and drop) all the files from this package to the workspace
-7. open index.html and then press Run (green button in top)
+To enter the admin panel, you'll need a workspace that supports Angular v1.x. A good option is to use a Cloud IDE such as Cloud9:
 
-After step 7, you will see something like the following in the terminal:
-```
-Your code is running at https://[admin-workspace-name]-[your-username].c9users.io.
-```
-Note: if you are not active for two days, you will need to login to your workspace and press again the green button Run to activate the admin. This can be overcome by uploading all your files to a custom server. Feel free to email me if you wish to do this.
+1. Head over to `www.c9.io`
+2. Create an account or sign in
+3. In your dashboard, create a new workspace (select nodejs)
+4. Open this workspace
+5. Delete all the files in there (except for the folder .c9)
+6. Upload (drag and drop) all the files from this package to the workspace (drop the files at the folder <your-workspace-name>)
+7. Open `index.html` and then press Run (green button in top)
+
+Your admin panel should be served now on something like ``[name-workspace]-[username].c9users.io`
+Note: if you are not active for two days, you will need to login to your workspace and press again the green button Run to activate the admin. This can be overcome by uploading all your files to a custom server or by managing it locally (`localhost` with `nodejs`).
 
 ## Extending the Authorized Domains for oAuth redirect
+
 If you are hosting the Admin panel on a foreign location (in the cloud), you will need to extend the authorized domains for oAuth redirects in Firebase. To do so:
 
-1. Go to Firebase and open your app `[your-app-name]`
-2. On the right press **Login & Auth**
-3. In the first top field add the location of your admin panel. If you are hosting it on cloud9 then you would typically add: `https://[admin-workspace-name]-[your-username].c9users.io`
+1. In your Firebase project, head to **Authentication** and press on tab **Sign in methods**.
+2. Scroll down to the section **OAuth redirect domains**
+3. Add the top field location of your admin panel. If you are hosting it on cloud9 then you would typically add: `https://[admin-workspace-name]-[your-username].c9users.io`
 
-# Setup 4: Ionic App Setup
-Now that we have prepared the back-end, it's time to setup and run the front-end. If you are familiar with Ionic Framework, then you know the structure of such apps. If you are new to Ionic, then you probably need to setup the dependencies. Here is [how to get started with Ionic](http://ionicframework.com/getting-started/):
+## Firebase Admin Rights
+
+The instructions for this part are visually explained in the folder `admin/img/examples`. Rune the admin at its root folder (`index.html`) and follow steps 1-4 to define the administrator. The administrator manages the items that are displayed in the Ionic Shop.
+
+# Setup 4: Ionic V1 App
+
+Now that we have prepared the back-end, it's time to setup and run the front-end. If you are familiar with Ionic Framework, then you know the structure of such apps. If you are new to Ionic, then you probably need to setup the dependencies. Here is [how to get started with Ionic](http://ionicframework.com/docs/overview/#download):
 
 ```
 $ npm install -g cordova ionic
@@ -155,6 +151,8 @@ If you are working locally, you can then visit `http://localhost:8100/` in your 
 preview your application.
 
 You can also unpack all the files in a cloud environment such as Cloud9 (see instructions above, they are similar).
+
+**IMPORTANT**: when going through the Ionic Docs, make sure you are always in the V1 section!
 
 # Wrapping up
 So far you have setup all the constants and variables. If everything went well, all should be working fine now. To proceed, you can now login to your admin panel and add items. These items will be immediately (after refreshing) shown in your Ionic App. You can try to make a test purchase in the Ionic App. You will see the payment immediately reflected on your Stripe Account. The orders will be also visible in both the admin management as the orders section of the app. Have fun earning money!
