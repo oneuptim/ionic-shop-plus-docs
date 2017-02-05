@@ -6,7 +6,7 @@ products immediately and receive payments on your account. It also comes with a 
 
 View a demo, preview it on your phone, read more about all the functionalities and download the template on the [product page](https://www.noodl.io/market/product/P201602271203444/ionic-shop-advanced-edition-full-ecommerce-app-w-stripe-payments-and-admin).
 
-[<img src="http://www.seipel-ibisevic.com/assets-external/ionic-shop-plus/v3/banner_envato_web.png">](https://www.noodl.io/market/product/P201602271203444/ionic-shop-advanced-edition-full-ecommerce-app-w-stripe-payments-and-admin)
+[<img src="http://www.seipel-ibisevic.com/assets-external/ionic-shop-plus/v4/banner_envato_web.png">](https://www.noodl.io/market/product/P201602271203444/ionic-shop-advanced-edition-full-ecommerce-app-w-stripe-payments-and-admin)
 
 # External Dependencies
 The following external accounts are needed to work with this package as it is:
